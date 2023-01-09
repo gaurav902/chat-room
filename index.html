@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Chat Room</title>
+    <style>
+      #messages {
+        width: 500px;
+        height: 300px;
+        border: 1px solid black;
+        overflow-y: scroll;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HTML for the chat room user interface -->
+<div id="chat-room">
+  <div id="messages"></div>
+  <input type="text" id="message-input" placeholder="Enter your message here">
+  <button id="send-button">Send</button>
+</div>
+
+<!-- Template for a single message in the chat room -->
+<template id="message-template">
+  <div class="message">
+    <img src="" class="avatar">
+    <div class="text-container">
+      <span class="username"></span>
+      <span class="timestamp"></span>
+      <p class="text"></p>
+    </div>
+  </div>
+</template>
+
+<!-- JavaScript for handling chat room functionality -->
+<script>
+  // Get references to the necessary DOM elements
+  const chatRoom = document.getElementById('chat-room');
+  const messageInput = document.getElementById('message-input');
+  const sendButton = document.getElementById('send-button');
+  const messageTemplate = document.getElementById('message-template');
+  const messages = document.getElementById('messages');
+
+  // Set the user's username and avatar
+  const username = 'user123';
+  const avatar = '1.jpg';
+
+  // Send a message when the send button is clicked
+  sendButton.addEventListener('click', () => {
+    // Get the message text from the input field
+    const text = messageInput.value;
+
+    // Clear the input field
+    messageInput.value = '';
+
+    // Create a new message element using the template
+    const messageElement = messageTemplate.cloneNode(true);
+    messageElement.removeAttribute('id');
+    messageElement.querySelector('.avatar').src = avatar;
+    messageElement.querySelector('.username').textContent = username;
+    messageElement.querySelector('.timestamp').textContent = new Date().toLocaleString();
+    messageElement.querySelector('.text').textContent = text;
+
+    // Add the message element to the chat room
+    messages.appendChild(messageElement);
+  });
+</script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
+    <script src="chat.js"></script>
+  </body>
+</html>
